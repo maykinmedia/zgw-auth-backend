@@ -1,0 +1,8 @@
+include *.rst
+include LICENSE
+recursive-include zgw_auth_backend *.html
+recursive-include zgw_auth_backend *.txt
+recursive-include zgw_auth_backend *.po
+global-exclude __pycache__
+global-exclude *.py[co]
+
