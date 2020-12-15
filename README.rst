@@ -6,7 +6,7 @@ Welcome to zgw-auth-backend's documentation!
 :Keywords: zgw, vng, apis, drf
 :PythonVersion: 3.8
 
-|build-status| |coverage| |black|
+|build-status| |coverage| |linting| |black|
 
 |python-versions| |django-versions| |pypi-version|
 
@@ -89,8 +89,14 @@ Specify the authentication class on your view(s):
 4. Verify that the user with ``user_id`` username is created if it didn't exist yet, or
    if it did, that ``request.user`` is now this user.
 
-.. |build-status| image:: https://travis-ci.org/maykinmedia/zgw-auth-backend.svg?branch=master
-    :target: https://travis-ci.org/maykinmedia/zgw-auth-backend
+
+.. |build-status| image:: https://github.com/maykinmedia/zgw-auth-backend/workflows/Run%20CI/badge.svg
+    :target: https://github.com/maykinmedia/zgw-auth-backend/actions?query=workflow%3A%22Run+CI%22
+    :alt: Run CI
+
+.. |linting| image:: https://github.com/maykinmedia/zgw-auth-backend/workflows/Code%20quality%20checks/badge.svg
+    :target: https://github.com/maykinmedia/zgw-auth-backend/actions?query=workflow%3A%22Code+quality+checks%22
+    :alt: Code linting
 
 .. |coverage| image:: https://codecov.io/gh/maykinmedia/zgw-auth-backend/branch/master/graph/badge.svg
     :target: https://codecov.io/gh/maykinmedia/zgw-auth-backend
