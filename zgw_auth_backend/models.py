@@ -20,4 +20,4 @@ class ApplicationCredentials(models.Model):
         verbose_name_plural = _("client credentials")
 
     def __str__(self):
-        return self.identifier
+        return self.client_id
