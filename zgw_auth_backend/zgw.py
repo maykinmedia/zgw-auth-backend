@@ -31,7 +31,11 @@ class ZGWAuth:
 
             # jwt check
             try:
-                payload = jwt.decode(self.encoded, verify=False)
+                payload = jwt.decode(
+                    self.encoded,
+                    options={"verify_signature": False},
+                    algorithms=[ALG],
+                )
             except jwt.DecodeError:
                 logger.info("Invalid JWT encountered")
                 raise exceptions.AuthenticationFailed(
@@ -65,7 +69,11 @@ class ZGWAuth:
 
             # check signature of the token
             try:
-                payload = jwt.decode(self.encoded, key, algorithms=ALG)
+                payload = jwt.decode(
+                    self.encoded,
+                    key,
+                    algorithms=[ALG],
+                )
             except jwt.InvalidSignatureError:
                 logger.exception("Invalid signature - possible payload tampering?")
                 raise exceptions.AuthenticationFailed(
