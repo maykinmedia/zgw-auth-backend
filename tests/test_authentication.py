@@ -63,6 +63,7 @@ class ZGWAuthTests(APITestCase):
             secret="secret",
             user_id="some-user",
             user_representation="Some User",
+            user_email="some@emailaddress.com",
         )
 
         response = self.client.get(
@@ -74,6 +75,8 @@ class ZGWAuthTests(APITestCase):
         user = User.objects.get()
         username = getattr(user, User.USERNAME_FIELD)
         self.assertEqual(username, "some-user")
+        email = getattr(user, User.EMAIL_FIELD)
+        self.assertEqual(email, "some@emailaddress.com")
 
     def test_no_duplicate_users(self):
         ApplicationCredentials.objects.create(client_id="dummy", secret="secret")
