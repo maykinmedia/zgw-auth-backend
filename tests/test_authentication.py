@@ -63,7 +63,7 @@ class ZGWAuthTests(APITestCase):
             secret="secret",
             user_id="some-user",
             user_representation="Some User",
-            user_email="some@emailaddress.com",
+            email="some@emailaddress.com",
         )
 
         response = self.client.get(
