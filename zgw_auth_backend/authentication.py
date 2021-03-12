@@ -41,7 +41,7 @@ class ZGWAuthentication(BaseAuthentication):
             msg = _("Invalid 'user_id' claim. The 'user_id' should not be empty.")
             raise exceptions.AuthenticationFailed(msg)
 
-        email = auth.payload.get("zds", {}).get("user_email", "")
+        email = auth.payload.get("email", "")
         return self.authenticate_user_id(user_id, email)
 
     def authenticate_user_id(self, username: str, email: str):
@@ -52,9 +52,11 @@ class ZGWAuthentication(BaseAuthentication):
 
         user, created = UserModel._default_manager.get_or_create(**fields)
         if created:
-            logger.info(
-                "Created user object for username %s with email %s" % (username, email)
-            )
+            msg = "Created user object for username %s" % username
+            if email:
+                msg += " with email %s" % email
+
+            logger.info(msg)
         return (user, None)
 
     def authenticate_header(self, request):
