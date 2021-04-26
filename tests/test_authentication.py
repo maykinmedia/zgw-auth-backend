@@ -94,3 +94,44 @@ class ZGWAuthTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(User.objects.count(), 1)
+
+    def test_add_email_to_user_with_empty_email_address(self):
+        ApplicationCredentials.objects.create(client_id="dummy", secret="secret")
+        user = User.objects.create(**{User.USERNAME_FIELD: "some-user"})
+        auth = ClientAuth(
+            client_id="dummy",
+            secret="secret",
+            user_id="some-user",
+            user_representation="Some User",
+            email="some@emailaddress.com",
+        )
+
+        response = self.client.get(
+            "/mock", HTTP_AUTHORIZATION=auth.credentials()["Authorization"]
+        )
+        user = User.objects.get(**{User.USERNAME_FIELD: "some-user"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(user.email, "some@emailaddress.com")
+
+    def test_change_email_of_user(self):
+        ApplicationCredentials.objects.create(client_id="dummy", secret="secret")
+        user = User.objects.create(
+            **{
+                User.USERNAME_FIELD: "some-user",
+                User.EMAIL_FIELD: "some@emailaddress.com",
+            }
+        )
+        auth = ClientAuth(
+            client_id="dummy",
+            secret="secret",
+            user_id="some-user",
+            user_representation="Some User",
+            email="some-other@emailaddress.com",
+        )
+
+        response = self.client.get(
+            "/mock", HTTP_AUTHORIZATION=auth.credentials()["Authorization"]
+        )
+        user = User.objects.get(**{User.USERNAME_FIELD: "some-user"})
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(user.email, "some-other@emailaddress.com")

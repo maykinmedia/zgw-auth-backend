@@ -47,16 +47,20 @@ class ZGWAuthentication(BaseAuthentication):
     def authenticate_user_id(self, username: str, email: str):
         UserModel = get_user_model()
         fields = {UserModel.USERNAME_FIELD: username}
-        if email:
-            fields[UserModel.EMAIL_FIELD] = email
-
         user, created = UserModel._default_manager.get_or_create(**fields)
         if created:
             msg = "Created user object for username %s" % username
-            if email:
-                msg += " with email %s" % email
-
             logger.info(msg)
+
+        if email:
+            email_field = UserModel.get_email_field_name()
+            email_value = getattr(user, email_field)
+            if not email_value or email_value != email:
+                setattr(user, email_field, email)
+                user.save()
+                msg = "Set email to %s of user with username %s" % (email, username)
+                logger.info(msg)
+
         return (user, None)
 
     def authenticate_header(self, request):
