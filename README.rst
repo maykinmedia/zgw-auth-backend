@@ -98,7 +98,7 @@ Specify the authentication class on your view(s):
     :target: https://github.com/maykinmedia/zgw-auth-backend/actions?query=workflow%3A%22Code+quality+checks%22
     :alt: Code linting
 
-.. |coverage| image:: https://codecov.io/gh/maykinmedia/zgw-auth-backend/branch/master/graph/badge.svg
+.. |coverage| image:: https://codecov.io/gh/maykinmedia/zgw-auth-backend/branch/main/graph/badge.svg
     :target: https://codecov.io/gh/maykinmedia/zgw-auth-backend
     :alt: Coverage status
 
