@@ -1,7 +1,7 @@
 Welcome to zgw-auth-backend's documentation!
 ============================================
 
-:Version: 1.0.3
+:Version: 1.0.4
 :Source: https://github.com/maykinmedia/zgw-auth-backend
 :Keywords: zgw, vng, apis, drf
 :PythonVersion: 3.8
